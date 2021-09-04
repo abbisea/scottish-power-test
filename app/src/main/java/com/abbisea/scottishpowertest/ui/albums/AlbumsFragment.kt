@@ -29,11 +29,16 @@ class AlbumsFragment : Fragment() {
         with(binding) {
             lifecycleOwner = viewLifecycleOwner
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.adapter = adapter
             recyclerView.setHasFixedSize(true)
             subscribeUi()
             return root
         }
     }
 
-    private fun subscribeUi() {}
+    private fun subscribeUi() {
+        viewModel.albums.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
+        }
+    }
 }
