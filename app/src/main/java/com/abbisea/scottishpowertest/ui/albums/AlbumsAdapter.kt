@@ -3,17 +3,17 @@ package com.abbisea.scottishpowertest.ui.albums
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.abbisea.scottishpowertest.R
 import com.abbisea.scottishpowertest.data.models.Album
 import com.abbisea.scottishpowertest.databinding.ListItemAlbumBinding
 
-class AlbumsAdapter : RecyclerView.Adapter<LaunchViewHolder>() {
+class AlbumsAdapter : PagingDataAdapter<Album, AlbumViewHolder>(AlbumDiffCallback()) {
 
-    private var items: List<Album> = listOf()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchViewHolder =
-        LaunchViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder =
+        AlbumViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.list_item_album,
@@ -22,19 +22,12 @@ class AlbumsAdapter : RecyclerView.Adapter<LaunchViewHolder>() {
             )
         )
 
-    override fun onBindViewHolder(holder: LaunchViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
-
-    fun updateData(newItems: List<Album>) {
-        items = newItems
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = items.size
 }
 
-class LaunchViewHolder(
+class AlbumViewHolder(
     private val binding: ListItemAlbumBinding,
 ) :
     RecyclerView.ViewHolder(binding.root) {
@@ -42,4 +35,13 @@ class LaunchViewHolder(
     fun bind(album: Album?) {
         binding.album = album
     }
+}
+
+private class AlbumDiffCallback : DiffUtil.ItemCallback<Album>() {
+
+    override fun areItemsTheSame(oldItem: Album, newItem: Album) =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Album, newItem: Album) =
+        oldItem == newItem
 }

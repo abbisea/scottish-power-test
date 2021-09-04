@@ -38,7 +38,7 @@ class AlbumsFragment : Fragment() {
 
     private fun subscribeUi() {
         viewModel.albums.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+            adapter.submitData(lifecycle, it)
         }
     }
 }
