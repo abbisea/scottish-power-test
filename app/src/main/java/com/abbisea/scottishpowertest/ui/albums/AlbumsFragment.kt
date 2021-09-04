@@ -15,9 +15,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class HomeFeedFragment : Fragment() {
+class AlbumsFragment : Fragment() {
 
-    private val viewModel: HomeFeedViewModel by viewModels()
+    private val viewModel: AlbumsViewModel by viewModels()
+    private val adapter = AlbumsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
