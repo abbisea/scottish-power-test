@@ -18,7 +18,7 @@ interface PlaceholderService {
         @Query("_limit") limit: Int = AlbumRemoteMediator.PAGE_SIZE,
         @Query("_sort") sort: String = "title",
         @Query("_order") order: String = "asc"
-    ): List<AlbumsDTO>
+    ): List<AlbumDTO>
 
     companion object {
         private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
